@@ -1,12 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import ApolloClient, { gql } from 'apollo-boost';
+import { onError } from 'apollo-link-error';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const client = new ApolloClient({
+  uri: 'http://10.20.0.3:5000/api/graphiql',
+  fetchOptions: {
+    mode: 'no-cors'
+  },
+  link
+});
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+client
+  .query({
+    query: gql`
+      {
+        songs {
+          id
+        }
+      }
+    `
+  })
+  .then(result => console.log(result));
+
+ReactDOM.render(<div>React App</div>, document.getElementById('root'));
