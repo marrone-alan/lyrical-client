@@ -7,8 +7,7 @@ const client = new ApolloClient({
   uri: 'http://10.20.0.3:5000/api/graphiql',
   fetchOptions: {
     mode: 'no-cors'
-  },
-  link
+  }
 });
 
 client
