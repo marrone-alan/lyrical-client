@@ -1,13 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ApolloClient, { gql } from 'apollo-boost';
-import { onError } from 'apollo-link-error';
+import ApolloClient from 'apollo-boost';
+import { gql } from 'apollo-boost';
 
 const client = new ApolloClient({
-  uri: 'http://10.20.0.3:5000/api/graphiql',
-  fetchOptions: {
-    mode: 'no-cors'
-  }
+  uri: 'http://10.20.0.3:5000/api/graphiql'
 });
 
 client
@@ -16,6 +13,7 @@ client
       {
         songs {
           id
+          title
         }
       }
     `
