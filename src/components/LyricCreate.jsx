@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { gql } from 'apollo-boost';
-import { useMutation } from '@apollo/react-hooks';
-import query from '../queries/fetchSong';
+import React, { useState } from "react";
+import { gql } from "apollo-boost";
+import { useMutation } from "@apollo/react-hooks";
 
 function LyricCreate(props) {
   const [input, setInput] = useState({});
@@ -17,19 +16,18 @@ function LyricCreate(props) {
     event.preventDefault();
 
     addLyricsToSong({
-      variables: { content: input.lyric, id: props.songId },
-      refetchQueries: [{ query, variables: { id: props.songId } }]
+      variables: { content: input.lyric, id: props.songId }
     }).then(() => {
-      setInput({ ...input, lyric: '' });
+      setInput({ ...input, lyric: "" });
     });
   };
 
   return (
     <form onSubmit={onSubmit.bind(this)}>
-      <label htmlFor='lyric'>Add a Lyric</label>
+      <label htmlFor="lyric">Add a Lyric</label>
       <input
-        type='text'
-        name='lyric'
+        type="text"
+        name="lyric"
         onChange={handleInputChange}
         value={input.lyric}
       />
@@ -41,7 +39,11 @@ const mutation = gql`
   mutation AddLyricsToSong($content: String, $id: ID!) {
     addLyricsToSong(content: $content, id: $id) {
       id
-      content
+      lyrics {
+        id
+        content
+        likes
+      }
     }
   }
 `;
